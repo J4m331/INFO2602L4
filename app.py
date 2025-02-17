@@ -154,5 +154,16 @@ def login_action():
     response = redirect(url_for('login_page'))
   return response
 
+
+@app.route('/createTodo', methods=['POST'])
+@jwt_required()
+def create_todo_action():
+  data = request.form
+  current_user.add_todo(data['text'])
+  flash('Created')
+  return redirect(url_for('todos_page'))
+
+
+
 if __name__ == "__main__":
   app.run(host='0.0.0.0', port=81)
